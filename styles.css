@@ -1,0 +1,249 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: #000;
+  color: #fff;
+}
+
+body {
+  overflow: hidden;
+  font-family: "Arial Black", "Arial Bold", Impact, sans-serif;
+}
+
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  padding: 24px;
+  background: #000;
+  transition: opacity 0.5s ease;
+}
+
+.loader.is-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader[hidden],
+.stage[hidden] {
+  display: none;
+}
+
+.loader h1 {
+  margin: 0;
+  max-width: 18ch;
+  font-size: clamp(22px, 3.6vw, 44px);
+  font-weight: 900;
+  line-height: 1.25;
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+.load-track {
+  width: min(440px, 72vw);
+  height: 18px;
+  border: 2px solid #fff;
+  overflow: hidden;
+}
+
+.load-fill {
+  width: 0;
+  height: 100%;
+  background: #fff;
+}
+
+.stage {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+}
+
+.frame {
+  position: relative;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.frame.is-in {
+  opacity: 1;
+}
+
+.frame img,
+.frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.frame video {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.frame.is-video video {
+  opacity: 1;
+}
+
+.frame.is-video img {
+  visibility: hidden;
+}
+
+#hotspots {
+  position: absolute;
+  inset: 0;
+}
+
+.hotspot {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.frame {
+  container-type: size;
+}
+
+.hotspot-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #2a1c12;
+  border-radius: 8px;
+  color: #fff;
+  font-family: "Lilita One", "Arial Black", sans-serif;
+  font-size: 1.35cqw;
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-align: center;
+  white-space: pre-line;
+  -webkit-text-stroke: 1px #2a1c12;
+  paint-order: stroke fill;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.45),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.28);
+}
+
+.hotspot-pill {
+  border-radius: 999px;
+  font-size: 1.05cqw;
+}
+
+.tone-red { background: linear-gradient(#f0453a, #c41212 46%, #8e0c0c); }
+.tone-green { background: linear-gradient(#7ed63a, #3c9a12 46%, #246808); }
+.tone-purple { background: linear-gradient(#b06af0, #6d32c4 46%, #45188a); }
+.tone-orange { background: linear-gradient(#ffb03a, #e06410 46%, #a33e08); }
+.tone-blue { background: linear-gradient(#6eb6ff, #2d78d8 46%, #184e96); }
+
+.panel[hidden] {
+  display: none;
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4%;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.panel-card {
+  position: relative;
+  width: min(100%, 560px);
+  max-height: 100%;
+  overflow: auto;
+  padding: 22px 22px 16px;
+  border: 4px solid #3a2a22;
+  border-radius: 16px;
+  background: #fffef8;
+  color: #2a2118;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  box-shadow: 0 10px 0 rgba(0, 0, 0, 0.28);
+}
+
+.panel-card h2 {
+  margin: 0 48px 12px 0;
+  font-size: 22px;
+}
+
+.panel-card h3 {
+  margin: 14px 0 2px;
+  font-size: 16px;
+}
+
+.panel-card p,
+.panel-card li {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.panel-card .meta,
+.panel-card .role {
+  margin-top: 2px;
+  color: #5c4a3a;
+}
+
+.panel-card ul {
+  margin: 6px 0 0;
+  padding-left: 18px;
+}
+
+.panel-card a {
+  color: #1d5bb5;
+}
+
+#panel-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 0;
+  border-radius: 6px;
+  background: #3a2a22;
+  color: #fff;
+  font: 700 13px Arial, Helvetica, sans-serif;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+#skip-intro {
+  display: none;
+  position: absolute;
+  right: 2.5%;
+  bottom: 4%;
+  z-index: 2;
+  padding: 8px 14px;
+  border: 2px solid #fff;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.72);
+  color: #fff;
+  font: 900 14px "Arial Black", "Arial Bold", Impact, sans-serif;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+
+.frame.is-video #skip-intro {
+  display: block;
+}
