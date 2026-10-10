@@ -81,26 +81,10 @@ body {
   opacity: 1;
 }
 
-.frame img,
-.frame video {
+.frame img {
   display: block;
   width: 100%;
   height: 100%;
-}
-
-.frame video {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.frame.is-video video {
-  opacity: 1;
-}
-
-.frame.is-video img {
-  visibility: hidden;
 }
 
 #hotspots {
@@ -116,42 +100,6 @@ body {
   background: transparent;
   cursor: pointer;
 }
-
-.frame {
-  container-type: size;
-}
-
-.hotspot-label {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid #2a1c12;
-  border-radius: 8px;
-  color: #fff;
-  font-family: "Lilita One", "Arial Black", sans-serif;
-  font-size: 1.35cqw;
-  font-weight: 400;
-  line-height: 1.05;
-  letter-spacing: 0.02em;
-  text-align: center;
-  white-space: pre-line;
-  -webkit-text-stroke: 1px #2a1c12;
-  paint-order: stroke fill;
-  box-shadow:
-    inset 0 2px 0 rgba(255, 255, 255, 0.45),
-    inset 0 -3px 0 rgba(0, 0, 0, 0.28);
-}
-
-.hotspot-pill {
-  border-radius: 999px;
-  font-size: 1.05cqw;
-}
-
-.tone-red { background: linear-gradient(#f0453a, #c41212 46%, #8e0c0c); }
-.tone-green { background: linear-gradient(#7ed63a, #3c9a12 46%, #246808); }
-.tone-purple { background: linear-gradient(#b06af0, #6d32c4 46%, #45188a); }
-.tone-orange { background: linear-gradient(#ffb03a, #e06410 46%, #a33e08); }
-.tone-blue { background: linear-gradient(#6eb6ff, #2d78d8 46%, #184e96); }
 
 .panel[hidden] {
   display: none;
@@ -228,22 +176,3 @@ body {
   cursor: pointer;
 }
 
-#skip-intro {
-  display: none;
-  position: absolute;
-  right: 2.5%;
-  bottom: 4%;
-  z-index: 2;
-  padding: 8px 14px;
-  border: 2px solid #fff;
-  border-radius: 4px;
-  background: rgba(0, 0, 0, 0.72);
-  color: #fff;
-  font: 900 14px "Arial Black", "Arial Bold", Impact, sans-serif;
-  letter-spacing: 0.04em;
-  cursor: pointer;
-}
-
-.frame.is-video #skip-intro {
-  display: block;
-}

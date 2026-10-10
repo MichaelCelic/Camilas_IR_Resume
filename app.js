@@ -3,109 +3,58 @@ const loadFill = document.getElementById("load-fill");
 const stage = document.getElementById("stage");
 const frame = document.getElementById("frame");
 const shot = document.getElementById("shot");
-const intro = document.getElementById("intro");
 const hotspots = document.getElementById("hotspots");
-const skipIntro = document.getElementById("skip-intro");
 const panel = document.getElementById("panel");
 const panelTitle = document.getElementById("panel-title");
 const panelBody = document.getElementById("panel-body");
 const panelClose = document.getElementById("panel-close");
 
-const RESUME_FILE = "assets/Camila Campa Resume (FINAL).docx";
-const RESUME_NAME = "Camila Campa Resume.docx";
-
 const SCREENS = {
   title: {
-    src: "assets/papa_front_page.png",
-    alt: "Papa's Scooperia title screen",
+    src: "assets/title_screen.png",
+    alt: "Campa's Scooperia title screen",
     hotspots: [
-      { label: "Play", left: 37.6, top: 68, width: 24.5, height: 11.8, to: "slots" },
-    ],
-  },
-  slots: {
-    src: "assets/game_slot.png",
-    alt: "Choose a save slot",
-    hotspots: [
-      { label: "New Game, slot 1", left: 14.7, top: 65.7, width: 20.6, height: 7, to: "character" },
-      { label: "New Game, slot 2", left: 39.7, top: 65.7, width: 20.6, height: 7, to: "character" },
-      { label: "New Game, slot 3", left: 64.8, top: 65.7, width: 20.6, height: 7, to: "character" },
+      { label: "Play", left: 35.58, top: 69.26, width: 28.4, height: 9.16, to: "character" },
     ],
   },
   character: {
-    src: "assets/choose_character.png",
+    src: "assets/character_select.png",
     alt: "Choose your character",
     hotspots: [
-      { label: "Select Carlo Romano", left: 16, top: 66.2, width: 18.9, height: 7.1, to: "intro" },
-      { label: "Select Koilee", left: 40.7, top: 66.2, width: 18.9, height: 7.1, to: "intro" },
+      { label: "Back", left: 2.18, top: 6.09, width: 10.68, height: 5.85, to: "title" },
+      { label: "Select Carlo Romano", left: 9.02, top: 80.16, width: 22.68, height: 5.29, to: "homepage" },
+      { label: "Select Camila Campa", left: 38.54, top: 80.16, width: 22.73, height: 5.29, to: "homepage" },
+      { label: "Select Koilee", left: 68.42, top: 80.16, width: 22.68, height: 5.29, to: "homepage" },
     ],
   },
-  shop: {
-    src: "assets/main_resume_page.png",
-    alt: "Inside the scooperia",
+  homepage: {
+    src: "assets/homepage.png",
+    alt: "Camila Campa homepage",
     hotspots: [
       {
-        label: "Download Resume",
-        text: "Download\nResume",
-        left: 24.77,
-        top: 26.87,
-        width: 8.87,
-        height: 7.79,
-        tone: "green",
-        shape: "pill",
-        action: "download",
-      },
-      {
-        label: "Projects",
-        text: "Projects",
-        left: 10.17,
-        top: 93.83,
-        width: 12.93,
-        height: 4.56,
-        tone: "red",
-        action: "panel",
-        panel: "projects",
-      },
-      {
         label: "Experience",
-        text: "Experience",
-        left: 23.48,
-        top: 91.04,
-        width: 14.41,
-        height: 9.11,
-        tone: "green",
+        left: 50.88,
+        top: 11.87,
+        width: 15.48,
+        height: 4.63,
         action: "panel",
         panel: "experience",
       },
       {
-        label: "Education",
-        text: "Education",
-        left: 37.62,
-        top: 91.77,
-        width: 13.77,
-        height: 7.94,
-        tone: "purple",
+        label: "Projects",
+        left: 68.41,
+        top: 11.87,
+        width: 11.87,
+        height: 4.63,
         action: "panel",
-        panel: "education",
-      },
-      {
-        label: "Skills",
-        text: "Skills",
-        left: 52.13,
-        top: 91.77,
-        width: 13.12,
-        height: 7.94,
-        tone: "orange",
-        action: "panel",
-        panel: "skills",
+        panel: "projects",
       },
       {
         label: "Contact",
-        text: "Contact",
-        left: 66.08,
-        top: 91.77,
-        width: 13.21,
-        height: 7.94,
-        tone: "blue",
+        left: 82.23,
+        top: 11.87,
+        width: 11.87,
+        height: 4.63,
         action: "panel",
         panel: "contact",
       },
@@ -249,23 +198,12 @@ function placeHotspots(spots) {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "hotspot";
-    if (spot.text) {
-      button.classList.add("hotspot-label", `tone-${spot.tone}`);
-      if (spot.shape === "pill") {
-        button.classList.add("hotspot-pill");
-      }
-      button.textContent = spot.text;
-    }
     button.style.left = `${spot.left}%`;
     button.style.top = `${spot.top}%`;
     button.style.width = `${spot.width}%`;
     button.style.height = `${spot.height}%`;
     button.setAttribute("aria-label", spot.label);
     button.addEventListener("click", () => {
-      if (spot.action === "download") {
-        downloadResume();
-        return;
-      }
       if (spot.action === "panel") {
         openPanel(spot.panel);
         return;
@@ -274,15 +212,6 @@ function placeHotspots(spots) {
     });
     hotspots.appendChild(button);
   }
-}
-
-function downloadResume() {
-  const link = document.createElement("a");
-  link.href = RESUME_FILE;
-  link.download = RESUME_NAME;
-  document.body.append(link);
-  link.click();
-  link.remove();
 }
 
 function closePanel() {
@@ -353,8 +282,6 @@ function openPanel(id) {
 
 function showImage(screen) {
   closePanel();
-  frame.classList.remove("is-video");
-  intro.pause();
   shot.alt = screen.alt;
   placeHotspots(screen.hotspots);
 
@@ -371,30 +298,6 @@ function showImage(screen) {
   });
 }
 
-function showIntro() {
-  closePanel();
-  hotspots.replaceChildren();
-  frame.classList.add("is-video");
-
-  const start = () => {
-    if (intro.videoWidth) {
-      fit(intro.videoWidth, intro.videoHeight);
-    }
-    return intro.play();
-  };
-
-  if (intro.readyState >= 1) {
-    return start();
-  }
-
-  return new Promise((resolve, reject) => {
-    intro.onloadedmetadata = () => {
-      start().then(resolve).catch(reject);
-    };
-    intro.onerror = () => reject(new Error("Could not play the intro"));
-  });
-}
-
 async function transitionTo(id) {
   if (transitioning) return;
   transitioning = true;
@@ -402,11 +305,7 @@ async function transitionTo(id) {
   await sleep(480);
 
   try {
-    if (id === "intro") {
-      await showIntro();
-    } else {
-      await showImage(SCREENS[id]);
-    }
+    await showImage(SCREENS[id]);
   } catch (error) {
     transitioning = false;
     frame.classList.add("is-in");
@@ -432,15 +331,6 @@ async function runLoader() {
   frame.classList.add("is-in");
 }
 
-intro.addEventListener("ended", () => {
-  transitionTo("shop");
-});
-
-skipIntro.addEventListener("click", () => {
-  intro.pause();
-  transitionTo("shop");
-});
-
 panelClose.addEventListener("click", closePanel);
 
 panel.addEventListener("click", (event) => {
@@ -456,10 +346,6 @@ document.addEventListener("keydown", (event) => {
 });
 
 window.addEventListener("resize", () => {
-  if (frame.classList.contains("is-video") && intro.videoWidth) {
-    fit(intro.videoWidth, intro.videoHeight);
-    return;
-  }
   if (shot.naturalWidth) {
     fit(shot.naturalWidth, shot.naturalHeight);
   }
