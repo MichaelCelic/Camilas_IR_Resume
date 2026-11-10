@@ -4,6 +4,9 @@ const stage = document.getElementById("stage");
 const frame = document.getElementById("frame");
 const shot = document.getElementById("shot");
 const hotspots = document.getElementById("hotspots");
+const popup = document.getElementById("popup");
+const popupShot = document.getElementById("popup-shot");
+const popupClose = document.getElementById("popup-close");
 const panel = document.getElementById("panel");
 const panelTitle = document.getElementById("panel-title");
 const panelBody = document.getElementById("panel-body");
@@ -41,13 +44,12 @@ const SCREENS = {
         panel: "experience",
       },
       {
-        label: "Projects",
-        left: 68.41,
-        top: 11.87,
-        width: 11.87,
-        height: 4.63,
-        action: "panel",
-        panel: "projects",
+        label: "Portfolio",
+        left: 66.4,
+        top: 12.19,
+        width: 15.7,
+        height: 4.38,
+        to: "portfolio",
       },
       {
         label: "Contact",
@@ -57,6 +59,67 @@ const SCREENS = {
         height: 4.63,
         action: "panel",
         panel: "contact",
+      },
+    ],
+  },
+  portfolio: {
+    src: "assets/portfolio_main.png",
+    alt: "Camila Campa portfolio",
+    hotspots: [
+      { label: "Home", left: 37.21, top: 12.19, width: 11.57, height: 4.38, to: "homepage" },
+      {
+        label: "Experience",
+        left: 50.98,
+        top: 12.19,
+        width: 15.23,
+        height: 4.38,
+        action: "panel",
+        panel: "experience",
+      },
+      {
+        label: "Contact",
+        left: 82.32,
+        top: 12.19,
+        width: 11.57,
+        height: 4.38,
+        action: "panel",
+        panel: "contact",
+      },
+      {
+        label: "FSU Transfers Connect",
+        left: 36.9,
+        top: 24.1,
+        width: 30.2,
+        height: 27.1,
+        action: "popup",
+        src: "assets/popup_fsu_transfer_cnct.png",
+      },
+      {
+        label: "YouTube Channel",
+        left: 68,
+        top: 24.1,
+        width: 30.2,
+        height: 27.1,
+        action: "popup",
+        src: "assets/popup_youtube.png",
+      },
+      {
+        label: "Twitch Channel",
+        left: 36.9,
+        top: 51.4,
+        width: 30.2,
+        height: 27.1,
+        action: "popup",
+        src: "assets/popup_twitch.png",
+      },
+      {
+        label: "Instagram",
+        left: 68,
+        top: 51.4,
+        width: 30.2,
+        height: 27.1,
+        action: "popup",
+        src: "assets/popup_instagram.png",
       },
     ],
   },
@@ -208,6 +271,10 @@ function placeHotspots(spots) {
         openPanel(spot.panel);
         return;
       }
+      if (spot.action === "popup") {
+        openPopup(spot.src, spot.label);
+        return;
+      }
       transitionTo(spot.to);
     });
     hotspots.appendChild(button);
@@ -217,6 +284,18 @@ function placeHotspots(spots) {
 function closePanel() {
   panel.hidden = true;
   panelBody.replaceChildren();
+}
+
+function closePopup() {
+  popup.hidden = true;
+  popupShot.removeAttribute("src");
+  popupShot.alt = "";
+}
+
+function openPopup(src, label) {
+  popupShot.alt = label;
+  popupShot.src = src;
+  popup.hidden = false;
 }
 
 function openPanel(id) {
@@ -282,6 +361,7 @@ function openPanel(id) {
 
 function showImage(screen) {
   closePanel();
+  closePopup();
   shot.alt = screen.alt;
   placeHotspots(screen.hotspots);
 
@@ -331,6 +411,8 @@ async function runLoader() {
   frame.classList.add("is-in");
 }
 
+popupClose.addEventListener("click", closePopup);
+
 panelClose.addEventListener("click", closePanel);
 
 panel.addEventListener("click", (event) => {
@@ -340,9 +422,12 @@ panel.addEventListener("click", (event) => {
 });
 
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    closePanel();
+  if (event.key !== "Escape") return;
+  if (!popup.hidden) {
+    closePopup();
+    return;
   }
+  closePanel();
 });
 
 window.addEventListener("resize", () => {

@@ -101,6 +101,23 @@ body {
   cursor: pointer;
 }
 
+.popup {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.popup[hidden] {
+  display: none;
+}
+
+#popup-close {
+  left: 82.4%;
+  top: 9.7%;
+  width: 7.5%;
+  height: 4%;
+}
+
 .panel[hidden] {
   display: none;
 }
